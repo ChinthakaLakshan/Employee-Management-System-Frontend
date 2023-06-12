@@ -1,7 +1,7 @@
 import { Outlet, Link } from "react-router-dom"
 import { useEffect, useRef, useState } from 'react'
 import { useRefreshMutation } from "./authApiSlice"
-import usePersist from "../../hooks/userPersist"
+import usePersist from "../../hooks/usePersist"
 import { useSelector } from 'react-redux'
 import { selectCurrentToken } from "./authSlice"
 
@@ -59,7 +59,7 @@ const PersistLogin = () => {
         console.log('error')
         content = (
             <p className='errmsg'>
-                {error.data?.message}
+                {`${error?.data?.message} - `}
                 <Link to="/login">Please login again</Link>.
             </p>
         )
@@ -72,6 +72,6 @@ const PersistLogin = () => {
         content = <Outlet />
     }
 
-    return content     
+    return content
 }
 export default PersistLogin
