@@ -1,14 +1,23 @@
-import { useSelector } from 'react-redux'
-import { selectEmployeeById } from './employeesApiSlice'
-import EditEmployeeForm from './EditEmployeeForm'
 import { useParams } from 'react-router-dom'
+import EditEmployeeForm from './EditEmployeeForm'
+import { useGetEmployeesQuery } from './employeesApiSlice'
+import PulseLoader from 'react-spinners/PulseLoader'
+import useTitle from '../../hooks/useTitle'
 
 const EditEmployee = () => {
+    useTitle('Aknara: Edit Employee')
+
     const { id } = useParams()
 
-    const employee = useSelector(state => selectEmployeeById(state, id))
+    const {employee } = useGetEmployeesQuery("EmployeesList", {
+        selectFromResult: ({ data }) => ({
+            employee: data?.entities[id]
+        }),
+    })
 
-    const content = employee ? <EditEmployeeForm employee={employee} /> : <p>Loading...</p>
+    if (!employee) return <PulseLoader color={"#FFF"} />
+
+    const content = <EditEmployeeForm employee={employee} />
 
     return content
 }
