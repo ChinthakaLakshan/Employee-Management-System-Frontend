@@ -8,6 +8,11 @@ import NotesList from './features/notes/NotesList'
 import UsersList from './features/users/UsersList'
 import EditUser from './features/users/EditUser'
 import NewUserForm from './features/users/NewUserForm'
+
+import EmployeesList from './features/employee/EmployeesList'
+import EditEmployee from './features/employee/EditEmployee'
+import NewEmployeeForm from './features/employee/NewEmployeeForm'
+
 import EditNote from './features/notes/EditNote'
 import NewNote from './features/notes/NewNote'
 import Prefetch from './features/auth/Prefetch'
@@ -43,6 +48,12 @@ function App() {
                   <Route index element={<NotesList />} />
                   <Route path=":id" element={<EditNote />} />
                   <Route path="new" element={<NewNote />} />
+                </Route>
+                
+                <Route path="employees">
+                  <Route index element={<EmployeesList />} />
+                  <Route path=":id" element={<EditEmployee />} />
+                  <Route path="new" element={<NewEmployeeForm />} />
                 </Route>
 
               </Route>{/* End Dash */}
