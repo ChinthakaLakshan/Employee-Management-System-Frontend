@@ -4,7 +4,7 @@ import Employee from './Employee'
 const EmployeesList = () => {
 
     const {
-        data: employee,
+        data: employees,
         isLoading,
         isSuccess,
         isError,

@@ -14,7 +14,7 @@ const Employee = ({EmployeeId }) => {
 
     const navigate = useNavigate()
 
-    if (user) {
+    if (employee) {
         const handleEdit = () => navigate(`/dash/employees/${EmployeeId}`)
 
         const employeeRolesString = employee.roles.toString().replaceAll(',', ', ')
@@ -39,6 +39,6 @@ const Employee = ({EmployeeId }) => {
     } else return null
 }
 
-const memoizedUser = memo(Employee)
+const memoizedEmployee = memo(Employee)
 
 export default memoizedEmployee

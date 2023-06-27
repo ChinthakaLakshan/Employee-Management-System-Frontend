@@ -79,7 +79,7 @@ export const {
 export const selectEmployeesResult = employeesApiSlice.endpoints.getEmployees.select()
 
 // creates memoized selector
-const selectUEmployeesData = createSelector(
+const selectEmployeesData = createSelector(
     selectEmployeesResult,
     EmployeesResult => EmployeesResult.data // normalized state object with ids & entities
 )
