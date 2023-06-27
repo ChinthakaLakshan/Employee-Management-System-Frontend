@@ -23,7 +23,7 @@ import { ROLES } from './config/roles'
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Ro  ute path="/" element={<Layout />}>
         {/* public routes */}
         <Route index element={<Public />} />
         <Route path="login" element={<Login />} />
