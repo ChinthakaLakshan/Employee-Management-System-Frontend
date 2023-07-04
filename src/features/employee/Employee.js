@@ -6,26 +6,37 @@ import { memo } from 'react'
 
 const Employee = ({EmployeeId }) => {
 
-    const { employee } = useGetEmployeesQuery("List", {
+    const { employees } = useGetEmployeesQuery("List", {
         selectFromResult: ({ data }) => ({
-            employee: data?.entities[EmployeeId]
+            employees: data?.entities[EmployeeId]
         }),
     })
 
     const navigate = useNavigate()
 
-    if (employee) {
-        const handleEdit = () => navigate(`/dash/employees/${EmployeeId}`)
+    if (employees) {
+        const handleEdit = () => navigate(`/dash/employee/${EmployeeId}`)
 
-        const employeeRolesString = employee.roles.toString().replaceAll(',', ', ')
+        const employeeRolesString = employees?.roles?.toString()?.replaceAll(',', ', ') ?? '';
+        const employeeDepartmentsString = employees?.department?.toString()?.replaceAll(',', ', ') ?? '';
+        //const employeeRolesString = employees.roles.toString().replaceAll(',', ', ')
 
-        const cellStatus = employee.active ? '' : 'table__cell--inactive'
+        const cellStatus = employees.active ? '' : 'table__cell--inactive'
 
         return (
             <tr className="table__row employee">
-                <td className={`table__cell ${cellStatus}`}>{employee.username}</td>
+                 
+                 <td className={`table__cell ${cellStatus}`}>{employees.username}</td>
+                <td className={`table__cell ${cellStatus}`}>{employees.fname}</td>
+                <td className={`table__cell ${cellStatus}`}>{employees.lname}</td>
+                <td className={`table__cell ${cellStatus}`}>{employees.email}</td>
+                <td className={`table__cell ${cellStatus}`}>{employees.address}</td>
+                <td className={`table__cell ${cellStatus}`}>{employees.phone}</td>
+                <td className={`table__cell ${cellStatus}`}>{employeeDepartmentsString}</td>
                 <td className={`table__cell ${cellStatus}`}>{employeeRolesString}</td>
-                <td className={`table__cell ${cellStatus}`}>
+                <td className={`table__cell ${cellStatus}`}>{employees.prevexperience}</td>
+                <td className={`table__cell ${cellStatus}`}>{employees.empId}</td>
+               <td className={`table__cell ${cellStatus}`}>
                     <button
                         className="icon-button table__button"
                         onClick={handleEdit}
@@ -33,6 +44,8 @@ const Employee = ({EmployeeId }) => {
                         <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
                 </td>
+
+
             </tr>
         )
 

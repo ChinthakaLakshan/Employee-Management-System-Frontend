@@ -11,14 +11,14 @@ const initialState = employeesAdapter.getInitialState()
 export const employeesApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getEmployees: builder.query({
-            query: () => '/employees',
+            query: () => '/employee',
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
             transformResponse: responseData => {
-                const loadedEmployees = responseData.map(employee => {
-                    employee.id = employee._id
-                    return employee
+                const loadedEmployees = responseData.map(employees => {
+                    employees.id = employees._id
+                    return employees
                 });
                 return employeesAdapter.setAll(initialState, loadedEmployees)
             },
@@ -33,7 +33,7 @@ export const employeesApiSlice = apiSlice.injectEndpoints({
         }),
         addNewEmployees: builder.mutation({
             query: initialEmployeeData => ({
-                url: '/employees',
+                url: '/employee',
                 method: 'POST',
                 body: {
                     ...initialEmployeeData,
@@ -44,11 +44,11 @@ export const employeesApiSlice = apiSlice.injectEndpoints({
             ]
         }),
         updateEmployees: builder.mutation({
-            query: initialUserData => ({
-                url: '/employees',
+            query: initialEmployeeData => ({
+                url: '/employee',
                 method: 'PATCH',
                 body: {
-                    ...initialUserData,
+                    ...initialEmployeeData,
                 }
             }),
             invalidatesTags: (result, error, arg) => [
@@ -57,7 +57,7 @@ export const employeesApiSlice = apiSlice.injectEndpoints({
         }),
         deleteEmployees: builder.mutation({
             query: ({ id }) => ({
-                url: `/employees`,
+                url: `/employee`,
                 method: 'DELETE',
                 body: { id }
             }),

@@ -1,8 +1,11 @@
 import { useGetEmployeesQuery } from "./employeesApiSlice"
 import Employee from './Employee'
+import useTitle from "../../hooks/useTitle"
+import PulseLoader from 'react-spinners/PulseLoader'
+
 
 const EmployeesList = () => {
-
+    useTitle('Aknara: Employees List')
     const {
         data: employees,
         isLoading,
@@ -16,6 +19,8 @@ const EmployeesList = () => {
     })
 
     let content
+
+    if (isLoading) content = <PulseLoader color={"#FFF"} />
 
     if (isLoading) content = <p>Loading...</p>
 
@@ -32,16 +37,26 @@ const EmployeesList = () => {
             : null
 
         content = (
-            <table className="table table--employees">
+            <table className="table2 table--employees">
+
+
                 <thead className="table__thead">
                     <tr>
-                        <th scope="col" className="table__th employee__employeename">Employee Name</th>
-                        <th scope="col" className="table__th employee__roles">Roles</th>
-                        <th scope="col" className="table__th employee__edit">Edit</th>
-
+                    <th scope="col" className="table__th employee__employeename">USER Name</th>
+                        <th scope="col" className="table__th employee__employeename">First Name</th>
+                        <th scope="col" className="table__th employee__employeename">last Name</th>
                         <th scope="col" className="table__th employee__employeeemail">Email</th>
-                        <th scope="col" className="table__th employee__phone">Phone</th>
                         <th scope="col" className="table__th employee__address">Adddress</th>
+                        <th scope="col" className="table__th employee__phone">Phone</th>
+                        <th scope="col" className="table__th employee__roles">Department</th>
+                        <th scope="col" className="table__th employee__roles">Roles</th>
+                        <th scope="col" className="table__th employee__roles">Expirience</th>
+                        <th scope="col" className="table__th employee__roles">Employee Id</th>
+                        <th scope="col" className="table__th employee__edit">Edit</th>
+                       
+                       
+                        
+                       
 
                     </tr>
                 </thead>
@@ -55,3 +70,8 @@ const EmployeesList = () => {
     return content
 }
 export default EmployeesList
+
+
+
+
+

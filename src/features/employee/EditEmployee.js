@@ -9,15 +9,15 @@ const EditEmployee = () => {
 
     const { id } = useParams()
 
-    const {employee } = useGetEmployeesQuery("EmployeesList", {
+    const {employees } = useGetEmployeesQuery("EmployeesList", {
         selectFromResult: ({ data }) => ({
-            employee: data?.entities[id]
+            employees: data?.entities[id]
         }),
     })
 
-    if (!employee) return <PulseLoader color={"#FFF"} />
+    if (!employees) return <PulseLoader color={"#FFF"} />
 
-    const content = <EditEmployeeForm employee={employee} />
+    const content = <EditEmployeeForm employees={employees} />
 
     return content
 }

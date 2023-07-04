@@ -19,6 +19,8 @@ import Prefetch from './features/auth/Prefetch'
 import PersistLogin from './features/auth/PersistLogin'
 import RequireAuth from './features/auth/RequireAuth'
 import { ROLES } from './config/roles'
+//import { DEPARTMENT } from "../../config/department"
+
 
 function App() {
   return (
@@ -50,10 +52,10 @@ function App() {
                   <Route path="new" element={<NewNote />} />
                 </Route>
                 
-                <Route path="employees">
+                <Route path="employee">
                   <Route index element={<EmployeesList />} />
                   <Route path=":id" element={<EditEmployee />} />
-                  <Route path="new" element={<NewEmployeeForm />} />
+                  <Route path="new" element={<NewEmployeeForm/>} />
                 </Route>
 
               </Route>{/* End Dash */}
