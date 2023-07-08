@@ -6,8 +6,7 @@ import { faSave , faTrashCan} from "@fortawesome/free-solid-svg-icons"
 import { ROLES } from "../../config/roles"
 import { DEPARTMENT } from "../../config/department"
 
-const USER_REGEX = /^[A-z]{3,20}$/
-const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
+
 
 const EditEmployeeForm = ({employees}) => {
 
@@ -26,50 +25,46 @@ const EditEmployeeForm = ({employees}) => {
 
     const navigate = useNavigate()
 
-    const [username, setUsername] = useState('')
-    const [validUsername, setValidUsername] = useState(false)
-    const [password, setPassword] = useState('')
-    const [validPassword, setValidPassword] = useState(false)
+   
     const [roles, setRoles] = useState(["Employee"])
-
+    const [email, setemail] = useState('')
+    const [prevexperience, setexperience] = useState('')
+    const [phone, setphone] = useState('')
    /* const [fname, setfname] = useState('')
     const [lname, setlname] = useState('')
-    const [email, setemail] = useState('')
+   
     const [address, setaddress] = useState('')
-    const [phone, setphone] = useState('')
     
-    const [experience, setexperience] = useState('')
+    
+    
     const [empid, setempid] = useState('')*/
     const [department, setdepartment] = useState([''])
 
-    useEffect(() => {
-        setValidUsername(USER_REGEX.test(username))
-    }, [username])
 
-    useEffect(() => {
-        setValidPassword(PWD_REGEX.test(password))
-    }, [password])
+
+    
 
     useEffect(() => {
         if (isSuccess||isDelSuccess) {
-            setUsername('')
-            setPassword('')
+            
             setRoles([])
-           /* setaddress('')
             setemail('')
-            setempid('')
             setexperience('')
+            setphone('')
+           /* setaddress('')
+            
+            setempid('')
+            
             setfname('')
             setlname('')
-           setphone('')
+          
             */
            setdepartment([])
             navigate('/dash/employee')
         }
     }, [isSuccess,isDelSuccess, navigate])
 
-    const onUsernameChanged = e => setUsername(e.target.value)
-    const onPasswordChanged = e => setPassword(e.target.value)
+    
 
     const onRolesChanged = e => {
         const values = Array.from(
@@ -87,17 +82,25 @@ const EditEmployeeForm = ({employees}) => {
   }
 
 
+  const onEmailChanged = e => {
+    const value = e.target.value;
+    setemail(value);
+  }
+
+
     const onSaveEmployeesClicked = async (e) => {
-        if (password) {
-            await updateEmployees({ id: employees.id, username, password, roles })
-        } else {
-            await updateEmployees({ id: employees.id, username, roles })
+        
+            await updateEmployees({ id: employees.id, email, department, roles , phone ,prevexperience})
+        
+            
         }
-    }
+    
     const onDeleteEmployeesClicked = async () => {
         await deleteEmployees({ id: employees.id })
     }
-    const canSave = [roles.length, validUsername, validPassword/*,empid.length,phone.length,email.length,fname.length,lname.length,address.length,department.length,experience.length*/,department.length].every(Boolean) && !isLoading
+
+    
+    const canSave = [roles.length ,department.length].every(Boolean) && !isLoading
 
     
 
@@ -124,8 +127,7 @@ const EditEmployeeForm = ({employees}) => {
  
 
     const errClass = (isError || isDelError) ? "errmsg" : "offscreen"
-    const validUserClass = !validUsername ? 'form__input--incomplete' : ''
-    const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
+    
     const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
     const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
     const validDeptClass = !Boolean(department.length) ? 'form__input--incomplete' : ''
@@ -155,31 +157,20 @@ const EditEmployeeForm = ({employees}) => {
                         </button>
           </div>
         </div>
-        <label className="form__label" htmlFor="username">
-          Username: <span className="nowrap">[3-20 letters]</span>
+        <label className="form__label" htmlFor="email">
+         Email: <span className="nowrap"></span>
         </label>
         <input
-          className={`form__input ${validUserClass}`}
-          id="username"
-          name="username"
+          className={`form__input `}
+          id="email"
+          name="email"
           type="text"
           autoComplete="off"
-          value={username}
-          onChange={onUsernameChanged}
+          value={email}
+          onChange={onEmailChanged}
         />
 
-        <label className="form__label" htmlFor="password">
-          Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span>
-        </label>
-        <input
-          className={`form__input ${validPwdClass}`}
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={onPasswordChanged}
-        />
-
+       
         <label className="form__label" htmlFor="roles">
           Assigned Roles:
         </label>

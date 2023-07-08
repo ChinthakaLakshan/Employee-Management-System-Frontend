@@ -42,7 +42,6 @@ const EmployeesList = () => {
 
                 <thead className="table__thead">
                     <tr>
-                    <th scope="col" className="table__th employee__employeename">USER Name</th>
                         <th scope="col" className="table__th employee__employeename">First Name</th>
                         <th scope="col" className="table__th employee__employeename">last Name</th>
                         <th scope="col" className="table__th employee__employeeemail">Email</th>
@@ -53,11 +52,6 @@ const EmployeesList = () => {
                         <th scope="col" className="table__th employee__roles">Expirience</th>
                         <th scope="col" className="table__th employee__roles">Employee Id</th>
                         <th scope="col" className="table__th employee__edit">Edit</th>
-                       
-                       
-                        
-                       
-
                     </tr>
                 </thead>
                 <tbody>

@@ -24,9 +24,7 @@ const Employee = ({EmployeeId }) => {
         const cellStatus = employees.active ? '' : 'table__cell--inactive'
 
         return (
-            <tr className="table__row employee">
-                 
-                 <td className={`table__cell ${cellStatus}`}>{employees.username}</td>
+            <tr className="table__row employee">    
                 <td className={`table__cell ${cellStatus}`}>{employees.fname}</td>
                 <td className={`table__cell ${cellStatus}`}>{employees.lname}</td>
                 <td className={`table__cell ${cellStatus}`}>{employees.email}</td>

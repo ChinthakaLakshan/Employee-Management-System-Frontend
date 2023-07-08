@@ -6,8 +6,7 @@ import { faSave } from "@fortawesome/free-solid-svg-icons"
 import { ROLES } from "../../config/roles"
 import { DEPARTMENT } from "../../config/department"
 
-const USER_REGEX = /^[A-z]{3,20}$/
-const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
+
 
 const NewEmployeeForm = () => {
 
@@ -20,10 +19,8 @@ const NewEmployeeForm = () => {
 
     const navigate = useNavigate()
 
-    const [username, setUsername] = useState('')
-    const [validUsername, setValidUsername] = useState(false)
-    const [password, setPassword] = useState('')
-    const [validPassword, setValidPassword] = useState(false)
+    
+  
     const [roles, setRoles] = useState(["Employee"])
 
    const [fname, setfname] = useState('')
@@ -33,21 +30,16 @@ const NewEmployeeForm = () => {
     const [phone, setphone] = useState('')
     const [department, setdepartment] = useState([''])
     const [experience, setexperience] = useState('')
-    const [empid, setempid] = useState('')
+    const [empId, setempid] = useState('')
 
 
-    useEffect(() => {
-        setValidUsername(USER_REGEX.test(username))
-    }, [username])
+    
 
-    useEffect(() => {
-        setValidPassword(PWD_REGEX.test(password))
-    }, [password])
+   
 
     useEffect(() => {
         if (isSuccess) {
-            setUsername('')
-            setPassword('')
+            
             setRoles([])
             setaddress('')
             setemail('')
@@ -61,8 +53,7 @@ const NewEmployeeForm = () => {
         }
     }, [isSuccess, navigate])
 
-    const onUsernameChanged = e => setUsername(e.target.value)
-    const onPasswordChanged = e => setPassword(e.target.value)
+  
 
     const onRolesChanged = e => {
         const values = Array.from(
@@ -80,12 +71,12 @@ const NewEmployeeForm = () => {
         setdepartment(values)
     }
 
-    const canSave = [roles.length, validUsername, validPassword,empid.length,phone.length,email.length,fname.length,lname.length].every(Boolean) && !isLoading
+    const canSave = [roles.length, empId.length,phone.length,email.length,fname.length,lname.length].every(Boolean) && !isLoading
 
     const onSaveEmployeeClicked = async (e) => {
         e.preventDefault()
         if (canSave) {
-            await addNewEmployee({ username, password, roles,fname,lname,address,email,phone,department,experience,empid })
+            await addNewEmployee({  roles,fname,lname,address,email,phone,department,experience,empId })
         }
     }
 
@@ -110,8 +101,7 @@ const NewEmployeeForm = () => {
     })
 
     const errClass = isError ? "errmsg" : "offscreen"
-    const validUserClass = !validUsername ? 'form__input--incomplete' : ''
-    const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
+   
     const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
     const validDeptClass = !Boolean(department.length) ? 'form__input--incomplete' : ''
 
@@ -128,30 +118,9 @@ const NewEmployeeForm = () => {
             </button>
           </div>
         </div>
-        <label className="form__label" htmlFor="username">
-          Username123: <span className="nowrap">[3-20 letters]</span>
-        </label>
-        <input
-          className={`form__input ${validUserClass}`}
-          id="username"
-          name="username"
-          type="text"
-          autoComplete="off"
-          value={username}
-          onChange={onUsernameChanged}
-        />
+        
 
-        <label className="form__label" htmlFor="password">
-          Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span>
-        </label>
-        <input
-          className={`form__input ${validPwdClass}`}
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={onPasswordChanged}
-        />
+       
           <label className="form__label" htmlFor="empid">
          Employee ID:<span className="nowrap"></span>
         </label>
@@ -160,7 +129,7 @@ const NewEmployeeForm = () => {
           id="empid"
           name="empid"
           type="text"
-          value={empid}
+          value={empId}
           onChange={(e) => setempid(e.target.value)}
         />
 
