@@ -1,35 +1,124 @@
-import { Link } from 'react-router-dom'
-import useAuth from '../../hooks/useAuth'
+import { Link } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers, faUserPlus, faUser, faPlus, faStickyNote } from '@fortawesome/free-solid-svg-icons';
 
 const Welcome = () => {
+  const { username, isManager, isAdmin } = useAuth();
 
-    const { username, isManager, isAdmin } = useAuth()
+  const date = new Date();
+  const today = new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(date);
 
-    const date = new Date()
-    const today = new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(date)
+  const boxContainerStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
 
-    const content = (
-        <section className="welcome">
+  const boxStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '300px',
+    height: '200px',
+    backgroundColor: '#ffd700',
+    borderRadius: '10px',
+    margin: '10px',
+    padding: '10px',
+    textAlign: 'center',
+  };
 
-            <p>{today}</p>
+  const iconStyle = {
+    fontSize: '50px',
+    marginBottom: '10px',
+  };
+  const handleBoxHover = (event) => {
+    event.target.style.transform = 'scale(1.1)';
+  };
 
-            <h1>Welcome {username}!</h1>
-         
-             {(isManager || isAdmin) && <p><Link to="/dash/users">View User </Link></p>}
+  const handleBoxLeave = (event) => {
+    event.target.style.transform = 'scale(1)';
+  };
 
-               {(isManager || isAdmin) && <p><Link to="/dash/users/new">Add New User</Link></p>}
-               {(isManager || isAdmin) && <p><Link to="/dash/employee">Emloyee Details page</Link></p>}
-               {(isManager || isAdmin) && <p><Link to="/dash/employee/new">Add new Employee</Link></p>}
-            <p><Link to="/dash/notes">View techNotes</Link></p>
+  const content = (
+    <section className="welcome">
+    <p>{today}</p>
+    <h1>Welcome {username}!</h1>
 
-           
-            <p><Link to="/dash/notes/new">Add New techNote</Link></p>
+    <div style={boxContainerStyle}>
+      {(isManager || isAdmin) && (
+        <div
+          style={boxStyle}
+          onMouseEnter={handleBoxHover}
+          onMouseLeave={handleBoxLeave}
+        >
+          <Link to="/dash/users">
+            <FontAwesomeIcon icon={faUsers} style={iconStyle} />
+            View Users
+          </Link>
+          </div>
+        )}
 
-            
+        {(isManager || isAdmin) && (
+          <div style={boxStyle}
+          onMouseEnter={handleBoxHover}
+          onMouseLeave={handleBoxLeave}>
+             
+            <Link to="/dash/users/new">
+              <FontAwesomeIcon icon={faUserPlus} style={iconStyle} />
+              Add New User
+            </Link>
+          </div>
+        )}
 
-        </section>
-    )
+        {(isManager || isAdmin) && (
+          <div style={boxStyle}
+          onMouseEnter={handleBoxHover}
+          onMouseLeave={handleBoxLeave}>
+             
+            <Link to="/dash/employee">
+              <FontAwesomeIcon icon={faUser} style={iconStyle} />
+              Employee Details
+            </Link>
+          </div>
+        )}
 
-    return content
-}
-export default Welcome
+        {(isManager || isAdmin) && (
+          <div style={boxStyle}
+          onMouseEnter={handleBoxHover}
+          onMouseLeave={handleBoxLeave}>
+            <Link to="/dash/employee/new">
+              <FontAwesomeIcon icon={faPlus} style={iconStyle} />
+              Add New Employee
+            </Link>
+          </div>
+        )}
+
+        <div style={boxStyle}
+        onMouseEnter={handleBoxHover}
+        onMouseLeave={handleBoxLeave}>
+          <Link to="/dash/attendance">
+            <FontAwesomeIcon icon={faStickyNote} style={iconStyle} />
+            Attendance
+          </Link>
+        </div>
+
+        <div style={boxStyle}
+        onMouseEnter={handleBoxHover}
+        onMouseLeave={handleBoxLeave}>
+          <Link to="/dash/notes/new">
+            <FontAwesomeIcon icon={faStickyNote} style={iconStyle} />
+            Task
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+
+  return content;
+};
+
+export default Welcome;

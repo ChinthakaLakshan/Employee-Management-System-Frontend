@@ -212,7 +212,14 @@ tr {
   color: var(--TABLE-COLOR);
   gap: 0.1em;
 }
-
+.tableatte {
+  font-size: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr    ;
+  color: var(--TABLE-COLOR);
+  gap: 0.1em;
+}
 .table__button {
   padding: 0.25em;
   font-size: 1.5rem;

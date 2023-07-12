@@ -72,7 +72,7 @@ export const {
     useGetEmployeesQuery,
     useAddNewEmployeesMutation,
     useUpdateEmployeesMutation,
-    useDeleteEmployeesMutation,
+    useDeleteEmployeesMutation
 } = employeesApiSlice
 
 // returns the query result object

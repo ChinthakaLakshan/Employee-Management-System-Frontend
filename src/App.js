@@ -21,6 +21,8 @@ import RequireAuth from './features/auth/RequireAuth'
 import { ROLES } from './config/roles'
 //import { DEPARTMENT } from "../../config/department"
 
+import AttendanceList from './features/attendance/AttendanceList'
+
 
 function App() {
   return (
@@ -56,6 +58,12 @@ function App() {
                   <Route index element={<EmployeesList />} />
                   <Route path=":id" element={<EditEmployee />} />
                   <Route path="new" element={<NewEmployeeForm/>} />
+                </Route>
+
+                <Route path="attendance">
+                  <Route index element={<AttendanceList />} />
+                 {/*  <Route path=":id" element={<EditEmployee />} />
+                  <Route path="new" element={<NewEmployeeForm/>} /> */}
                 </Route>
 
               </Route>{/* End Dash */}
