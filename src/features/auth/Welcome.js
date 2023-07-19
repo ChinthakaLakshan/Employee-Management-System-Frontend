@@ -114,6 +114,15 @@ const Welcome = () => {
             Task
           </Link>
         </div>
+
+        <div style={boxStyle}
+        onMouseEnter={handleBoxHover}
+        onMouseLeave={handleBoxLeave}>
+          <Link to="/dash/task">
+            <FontAwesomeIcon icon={faStickyNote} style={iconStyle} />
+            Task 123
+          </Link>
+        </div>
       </div>
     </section>
   );

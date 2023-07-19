@@ -5,7 +5,8 @@ import {
     faFilePen,
     faUserGear,
     faUserPlus,
-    faRightFromBracket
+    faRightFromBracket,
+    faPlus
 } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate, Link, useLocation } from 'react-router-dom'
 
@@ -16,6 +17,7 @@ import useAuth from '../hooks/useAuth'
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
 const USERS_REGEX = /^\/dash\/users(\/)?$/
+const ATTENDANCE_REGEX = /^\/dash\/attendance(\/)?$/
 
 const DashHeader = () => {
     const { isManager, isAdmin } = useAuth()
@@ -38,7 +40,7 @@ const DashHeader = () => {
     const onNewUserClicked = () => navigate('/dash/users/new')
     const onNotesClicked = () => navigate('/dash/notes')
     const onUsersClicked = () => navigate('/dash/users')
-
+    const onNewAttendanceClicked = () => navigate('/dash/attendance/new')
     let dashClass = null
     if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {
         dashClass = "dash-header__container--small"
@@ -97,7 +99,18 @@ const DashHeader = () => {
             </button>
         )
     }
-
+    let attendanceButton = null // New addition
+    if (ATTENDANCE_REGEX.test(pathname)) {
+        attendanceButton = (
+            <button
+                className="icon-button"
+                title="New Attendance"
+                onClick={onNewAttendanceClicked}
+            >
+                <FontAwesomeIcon icon={faPlus} />
+            </button>
+        )
+    }
     const logoutButton = (
         <button
             className="icon-button"
@@ -120,6 +133,7 @@ const DashHeader = () => {
                 {newUserButton}
                 {notesButton}
                 {userButton}
+                {attendanceButton}
                 {logoutButton}
             </>
         )

@@ -22,8 +22,10 @@ import { ROLES } from './config/roles'
 //import { DEPARTMENT } from "../../config/department"
 
 import AttendanceList from './features/attendance/AttendanceList'
+import NewAttendanceForm from './features/attendance/NewAttendanceForm';
+import EditAttendance from './features/attendance/EditAttendance';
 
-
+import TaskList from './features/task/TaskList';
 function App() {
   return (
     <Routes>
@@ -62,9 +64,16 @@ function App() {
 
                 <Route path="attendance">
                   <Route index element={<AttendanceList />} />
-                 {/*  <Route path=":id" element={<EditEmployee />} />
-                  <Route path="new" element={<NewEmployeeForm/>} /> */}
+                  <Route path=":id" element={<EditAttendance />} />
+                  <Route path="new" element={<NewAttendanceForm/>} /> 
                 </Route>
+                
+                <Route path="task">
+                  <Route index element={<TaskList />} />
+                  {/* <Route path=":id" element={<EditAttendance />} />
+                  <Route path="new" element={<NewAttendanceForm/>} />  */}
+                </Route>
+
 
               </Route>{/* End Dash */}
             </Route>

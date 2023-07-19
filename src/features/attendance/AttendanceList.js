@@ -42,10 +42,10 @@ const AttendanceList = () => {
 
                 <thead className="table__thead">
                     <tr>
-                        <th scope="col" className="table__th employee__employeename">Employee Id</th>
-                        <th scope="col" className="table__th employee__employeeemail">Date</th>
-                        <th scope="col" className="table__th employee__roles">Time In</th>
-                        <th scope="col" className="table__th employee__roles">Time Out</th>
+                        <th scope="col" className="table__th employee__employeeid">Employee Id</th>
+                        <th scope="col" className="table__th employee__employeedate">Date</th>
+                        <th scope="col" className="table__th employee__Time">Time In</th>
+                        <th scope="col" className="table__th employee__Time">Time Out</th>
                         <th scope="col" className="table__th employee__edit">Edit</th>
                     </tr>
                 </thead>

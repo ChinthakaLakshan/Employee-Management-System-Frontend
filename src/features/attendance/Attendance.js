@@ -22,13 +22,28 @@ const Attendance = ({AttendanceId }) => {
         //const employeeRolesString = employees.roles.toString().replaceAll(',', ', ')
 
        const cellStatus = attendance.active ? '' : 'table__cell--inactive'
-
+       const formattedDate = new Date(attendance.date).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+      const formattedTimeIn = new Date(attendance.timeIn).toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      });
+      
+      const formattedTimeOut = new Date(attendance.timeOut).toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      });
         return (
             <tr className="table__row attendance">    
                 <td className={`table__cell ${cellStatus}`}>{attendance.empId}</td>
-                <td className={`table__cell ${cellStatus}`}>{attendance.date}</td>
-                <td className={`table__cell ${cellStatus}`}>{attendance.timeIn}</td>
-                <td className={`table__cell ${cellStatus}`}>{attendance.timeOut}</td>
+                <td className={`table__cell ${cellStatus}`}>{formattedDate}</td>
+                <td className={`table__cell ${cellStatus}`}>{ formattedTimeIn}</td>
+                <td className={`table__cell ${cellStatus}`}>{formattedTimeOut}</td>
                 <td className={`table__cell ${cellStatus}`}>
                     <button
                         className="icon-button table__button"
