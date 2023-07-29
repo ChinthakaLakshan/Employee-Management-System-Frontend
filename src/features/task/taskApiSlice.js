@@ -6,7 +6,7 @@ const tasksAdapter = createEntityAdapter();
 const initialState = tasksAdapter.getInitialState();
 
 export const taskApiSlice = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     getTasks: builder.query({
       query: () => ({
         url: '/task',
@@ -14,7 +14,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
           return response.status === 200 && !result.isError;
         },
       }),
-      transformResponse: (responseData) => {
+      transformResponse: responseData => {
         const loadedTasks = responseData.map((task) => {
           task.id = task._id;
           return task;
@@ -34,7 +34,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
     }),
     createTask: builder.mutation({
       query: (newTask) => ({
-        url: '/tasks',
+        url: '/task',
         method: 'POST',
         body: newTask,
       }),

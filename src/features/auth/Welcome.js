@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faUserPlus, faUser, faPlus, faStickyNote } from '@fortawesome/free-solid-svg-icons';
 
 const Welcome = () => {
-  const { username, isManager, isAdmin } = useAuth();
+  const { username, isManager, isAdmin , isChef, isSupevisor,isStewards,isAccountant} = useAuth();
 
   const date = new Date();
   const today = new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(date);
@@ -123,6 +123,26 @@ const Welcome = () => {
             Task 123
           </Link>
         </div>
+
+        <div style={boxStyle}
+        onMouseEnter={handleBoxHover}
+        onMouseLeave={handleBoxLeave}>
+          <Link to="/dash/leave">
+            <FontAwesomeIcon icon={faStickyNote} style={iconStyle} />
+            Leaves
+          </Link>
+        </div>
+
+        <div style={boxStyle}
+        onMouseEnter={handleBoxHover}
+        onMouseLeave={handleBoxLeave}>
+          <Link to="/dash/leave/new">
+            <FontAwesomeIcon icon={faStickyNote} style={iconStyle} />
+           Reuest Leaves
+          </Link>
+        </div>
+
+
       </div>
     </section>
   );

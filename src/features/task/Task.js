@@ -4,30 +4,39 @@ import { useNavigate } from 'react-router-dom'
 import { useGetTasksQuery } from './taskApiSlice' 
 import { memo } from 'react'
 
+
 const Task = ({TaskId }) => {
 
-    const { task} = useGetTasksQuery("List", {
+    const { task} = useGetTasksQuery("taskList", {
         selectFromResult: ({ data }) => ({
             task: data?.entities[TaskId]
         }),
     })
+   
 
     const navigate = useNavigate()
+  
 
-    if (task) {
-        const handleEdit = () => navigate(`/dash/task/${TaskId}`)
-
-       const created = new Date(task.createdAt).toLocaleString('en-US', { day: 'numeric', month: 'long' })
+      if (task) {
+        const handleEdit = () => navigate(`/dash/task/${TaskId}`);
+    
+        const created = new Date(task.createdAt).toLocaleString('en-US', {
+          day: 'numeric',
+          month: 'long',
+        });
 
        const cellStatus = task.active ? '' : 'table__cell--inactive'
+       
+
        
       
     
         return (
             <tr className="table__row task">    
                 <td className={`table__cell ${cellStatus}`}>{created}</td>
-              {  <td className={`table__cell ${cellStatus}`}>{task.empId}</td> }
-                <td className={`table__cell ${cellStatus}`}>{ task.title}</td>
+                <td className="table__cell note__username">{task.selectedEmployees}</td>
+                <td className={`table__cell ${cellStatus}`}>{ task.title}</td> 
+                <td className={`table__cell ${cellStatus}`}>{task.description}</td>
                 <td className={`table__cell ${cellStatus}`}>{task.status}</td>
                 <td className={`table__cell ${cellStatus}`}>
                     <button

@@ -18,6 +18,7 @@ const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
 const USERS_REGEX = /^\/dash\/users(\/)?$/
 const ATTENDANCE_REGEX = /^\/dash\/attendance(\/)?$/
+const TASK_REGEX = /^\/dash\/task(\/)?$/
 
 const DashHeader = () => {
     const { isManager, isAdmin } = useAuth()
@@ -41,6 +42,8 @@ const DashHeader = () => {
     const onNotesClicked = () => navigate('/dash/notes')
     const onUsersClicked = () => navigate('/dash/users')
     const onNewAttendanceClicked = () => navigate('/dash/attendance/new')
+    const onNewTaskClicked = () => navigate('/dash/task/new')
+   /*  const onNewLeaveClicked =()=>navigate('./dash/leave/new') */
     let dashClass = null
     if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {
         dashClass = "dash-header__container--small"
@@ -111,6 +114,34 @@ const DashHeader = () => {
             </button>
         )
     }
+
+    let taskButton = null // New addition
+    if (TASK_REGEX.test(pathname)) {
+        taskButton = (
+            <button
+                className="icon-button"
+                title="New Task"
+                onClick={onNewTaskClicked}
+            >
+                <FontAwesomeIcon icon={faPlus} />
+            </button>
+        )
+    }
+
+    
+/*     let leaveButton = null // New addition
+    if (LEAVE_REGEX.test(pathname)) {
+        leaveButton = (
+            <button
+                className="icon-button"
+                title="New Leave"
+                onClick={onNewTaskClicked}
+            >
+                <FontAwesomeIcon icon={faPlus} />
+            </button>
+        )
+    } */
+
     const logoutButton = (
         <button
             className="icon-button"
@@ -135,6 +166,7 @@ const DashHeader = () => {
                 {userButton}
                 {attendanceButton}
                 {logoutButton}
+                {taskButton}
             </>
         )
     }

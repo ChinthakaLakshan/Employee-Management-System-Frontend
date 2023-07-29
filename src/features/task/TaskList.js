@@ -38,15 +38,16 @@ const TaskList = () => {
             : null
 
         content = (
-            <table className="tableatte table--task">
+            <table className="tabletask table--task">
 
 
                 <thead className="table__thead">
                     <tr>
-                        <th scope="col" className="table__th employee__employeeid"> created Time</th>
-                        <th scope="col" className="table__th employee__employeedate">Title</th>
-                        <th scope="col" className="table__th employee__Time">description</th>
-                        <th scope="col" className="table__th employee__Time"> Assigned Employees </th>
+                        <th scope="col" className="table__th employee__employeeid"> created Date</th>
+                        <th scope="col" className="table__th employee__employeedate">Assigned Employees</th>
+                        <th scope="col" className="table__th employee__employeedate">Function</th>
+                        <th scope="col" className="table__th employee__Time">Description</th>
+                        <th scope="col" className="table__th employee__Time"> Status </th>
                         <th scope="col" className="table__th employee__edit">Edit</th>
                     </tr>
                 </thead>

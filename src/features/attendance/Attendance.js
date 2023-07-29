@@ -17,9 +17,7 @@ const Attendance = ({AttendanceId }) => {
     if (attendance) {
         const handleEdit = () => navigate(`/dash/attendance/${AttendanceId}`)
 
-        //const employeeRolesString = employees?.roles?.toString()?.replaceAll(',', ', ') ?? '';
-        //const employeeDepartmentsString = employees?.department?.toString()?.replaceAll(',', ', ') ?? '';
-        //const employeeRolesString = employees.roles.toString().replaceAll(',', ', ')
+ 
 
        const cellStatus = attendance.active ? '' : 'table__cell--inactive'
        const formattedDate = new Date(attendance.date).toLocaleDateString("en-GB", {

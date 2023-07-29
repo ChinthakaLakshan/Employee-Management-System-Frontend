@@ -139,7 +139,7 @@ a:focus-visible {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: var(--BGCOLOR);
+  background-color:#800000;
   padding: 0 0.5em;
   border-bottom: 1px solid var(--BORDER-COLOR);
 }
@@ -172,7 +172,7 @@ a:focus-visible {
   position: sticky;
   bottom: 0;
   z-index: 1;
-  background-color: var(--BGCOLOR);
+  background-color:#800000;
   padding: 0.5em;
   border-top: 1px solid var(--BORDER-COLOR);
   display: flex;
@@ -217,6 +217,15 @@ tr {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr    ;
+  color: var(--TABLE-COLOR);
+  gap: 0.1em;
+}
+
+.tabletask {
+  font-size: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr    ;
   color: var(--TABLE-COLOR);
   gap: 0.1em;
 }

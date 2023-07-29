@@ -6,7 +6,7 @@ import { memo } from 'react'
 
 const Employee = ({EmployeeId }) => {
 
-    const { employees } = useGetEmployeesQuery("List", {
+    const { employees } = useGetEmployeesQuery("employeeList", {
         selectFromResult: ({ data }) => ({
             employees: data?.entities[EmployeeId]
         }),

@@ -5,6 +5,7 @@ import Login from './features/auth/Login';
 import DashLayout from './components/DashLayout'
 import Welcome from './features/auth/Welcome'
 import NotesList from './features/notes/NotesList'
+
 import UsersList from './features/users/UsersList'
 import EditUser from './features/users/EditUser'
 import NewUserForm from './features/users/NewUserForm'
@@ -26,6 +27,13 @@ import NewAttendanceForm from './features/attendance/NewAttendanceForm';
 import EditAttendance from './features/attendance/EditAttendance';
 
 import TaskList from './features/task/TaskList';
+
+import TaskPage from './features/task/TaskPage';
+
+
+import LeaveList from './features/leave/LeaveList';
+import NewLeave from './features/leave/NewLeave';
+
 function App() {
   return (
     <Routes>
@@ -70,8 +78,13 @@ function App() {
                 
                 <Route path="task">
                   <Route index element={<TaskList />} />
-                  {/* <Route path=":id" element={<EditAttendance />} />
-                  <Route path="new" element={<NewAttendanceForm/>} />  */}
+                 {/*   <Route path=":id" element={<EditAttendance />} />*/ }
+                  <Route path="new" element={<TaskPage/>} />  
+                </Route>
+
+                <Route path="leave">
+                  <Route index element={<LeaveList/>} />
+                  <Route path="new" element={<NewLeave/>} />  
                 </Route>
 
 
