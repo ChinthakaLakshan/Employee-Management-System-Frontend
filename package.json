@@ -22,6 +22,7 @@
     "react-scripts": "5.0.1",
     "react-selector": "^0.0.5",
     "react-spinners": "^0.13.8",
+    "react-to-print": "^2.14.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-
+import useAuth from "../../hooks/useAuth"
 import { useCreateTaskMutation } from "./taskApiSlice";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from "@fortawesome/free-solid-svg-icons";
-
+import moment from 'moment';
 
 const NewTaskForm = ({  users  }) => {
+
+  const { username ,isAdmin,isManager } = useAuth()
   const [createNewTask, { isLoading, isSuccess, isError, error }] = useCreateTaskMutation();
   const navigate = useNavigate();
   
@@ -14,7 +16,9 @@ const NewTaskForm = ({  users  }) => {
   //const [taskNumber, setTaskNumber] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedEmployees, setSelectedEmployees] = useState([users[0].id]);
+  const [selectedEmployees, setSelectedEmployees] = useState([]/* [users[0].username] */);
+  const [startDatet, setStartDatet] = useState('');
+  const [timeOut, setTimeOutt] = useState('');
 
   useEffect(() => {
     if (isSuccess) {
@@ -22,13 +26,17 @@ const NewTaskForm = ({  users  }) => {
       //setTaskNumber('');
       setDescription('');
       setSelectedEmployees([]);
+      setStartDatet('');
+      setTimeOutt('');
+
       navigate('/dash/task');
     }
   }, [isSuccess, navigate ,createNewTask]);
 
   const onTitleChanged = e => setTitle(e.target.value);
   const onDescriptionChanged = e => setDescription(e.target.value);
-  /* const onUserIdChanged = e => setSelectedEmployees(e.target.value); */
+  
+  
   
   const onUsersChanged = e => {
     const values = Array.from(
@@ -38,12 +46,14 @@ const NewTaskForm = ({  users  }) => {
     console.log("Selected Employees:", values);
     setSelectedEmployees(values)
 }
-  const canSave = [ title, description,selectedEmployees].every(Boolean) && !isLoading;
+  const canSave = [ title, description,selectedEmployees, startDatet,timeOut].every(Boolean) && !isLoading;
   
   const onSaveNoteClicked = async e => {
     e.preventDefault();
     if (canSave) {
-      await createNewTask({ selectedEmployees, title, description});
+      const formattedDate = moment(startDatet).format('YYYY-MM-DD');
+      const formattedTimeIn = moment(timeOut, 'HH:mm').toDate();
+      await createNewTask({ selectedEmployees, title, description , startDatet:formattedDate,timeOut:formattedTimeIn});
      
     }
   };
@@ -74,7 +84,7 @@ const NewTaskForm = ({  users  }) => {
           </div>
         </div>
         <label className="form__label" htmlFor="title">
-          Title:
+          Task Name:
         </label>
         <input
           className={`form__input `}
@@ -110,6 +120,32 @@ const NewTaskForm = ({  users  }) => {
         >
           {options}
         </select>
+
+
+        <label className="form__label" htmlFor="startDate">
+          Start Date:
+        </label>
+        <input
+          className={`form__input `}
+          id="startDate"
+          name="startDate"
+          type="date"
+          value={startDatet}
+          onChange={(e) => setStartDatet(e.target.value)}
+        />
+         <label className="form__label" htmlFor="timeOut">
+          Starting Time:<span className="nowrap"></span>
+        </label>
+        <input
+          className="form__input"
+          id="timeOut"
+          name="timeOut"
+          type="time"
+          value={timeOut}
+          onChange={(e) => setTimeOutt(e.target.value)}
+        />
+
+
       </form>
     </>
   );

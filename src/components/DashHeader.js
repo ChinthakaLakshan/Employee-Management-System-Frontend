@@ -37,9 +37,9 @@ const DashHeader = () => {
         if (isSuccess) navigate('/')
     }, [isSuccess, navigate])
 
-    const onNewNoteClicked = () => navigate('/dash/notes/new')
+ //   const onNewNoteClicked = () => navigate('/dash/notes/new')
     const onNewUserClicked = () => navigate('/dash/users/new')
-    const onNotesClicked = () => navigate('/dash/notes')
+  //  const onNotesClicked = () => navigate('/dash/notes')
     const onUsersClicked = () => navigate('/dash/users')
     const onNewAttendanceClicked = () => navigate('/dash/attendance/new')
     const onNewTaskClicked = () => navigate('/dash/task/new')
@@ -49,7 +49,7 @@ const DashHeader = () => {
         dashClass = "dash-header__container--small"
     }
 
-    let newNoteButton = null
+  /*   let newNoteButton = null
     if (NOTES_REGEX.test(pathname)) {
         newNoteButton = (
             <button
@@ -60,7 +60,7 @@ const DashHeader = () => {
                 <FontAwesomeIcon icon={faFileCirclePlus} />
             </button>
         )
-    }
+    } */
 
     let newUserButton = null
     if (USERS_REGEX.test(pathname)) {
@@ -90,7 +90,7 @@ const DashHeader = () => {
         }
     }
 
-    let notesButton = null
+   /*  let notesButton = null
     if (!NOTES_REGEX.test(pathname) && pathname.includes('/dash')) {
         notesButton = (
             <button
@@ -101,8 +101,9 @@ const DashHeader = () => {
                 <FontAwesomeIcon icon={faFilePen} />
             </button>
         )
-    }
+    } */
     let attendanceButton = null // New addition
+    if (isManager || isAdmin) {
     if (ATTENDANCE_REGEX.test(pathname)) {
         attendanceButton = (
             <button
@@ -113,9 +114,10 @@ const DashHeader = () => {
                 <FontAwesomeIcon icon={faPlus} />
             </button>
         )
-    }
+    }}
 
     let taskButton = null // New addition
+    if (isManager || isAdmin) {
     if (TASK_REGEX.test(pathname)) {
         taskButton = (
             <button
@@ -126,7 +128,7 @@ const DashHeader = () => {
                 <FontAwesomeIcon icon={faPlus} />
             </button>
         )
-    }
+    }}
 
     
 /*     let leaveButton = null // New addition
@@ -160,9 +162,9 @@ const DashHeader = () => {
     } else {
         buttonContent = (
             <>
-                {newNoteButton}
+              {/* {newNoteButton} */}
                 {newUserButton}
-                {notesButton}
+                {/* {notesButton} */}
                 {userButton}
                 {attendanceButton}
                 {logoutButton}

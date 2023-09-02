@@ -10,6 +10,10 @@ import { DEPARTMENT } from "../../config/department"
 
 const NewEmployeeForm = () => {
 
+ /*  const empIdRegex = /^[a-zA-Z0-9]+$/;
+  const phoneRegex = /^[0-9]{10}$/;
+  const fnameRegex = /^[a-zA-Z]+$/; */
+
     const [addNewEmployee, {
         isLoading,
         isSuccess,
@@ -31,6 +35,7 @@ const NewEmployeeForm = () => {
     const [department, setdepartment] = useState([''])
     const [experience, setexperience] = useState('')
     const [empId, setempid] = useState('')
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     
@@ -51,7 +56,10 @@ const NewEmployeeForm = () => {
            setdepartment([])
             navigate('/dash/employee')
         }
-    }, [isSuccess, navigate])
+        else if (isError && error?.data?.message) {
+          setErrorMessage(error.data.message);
+        }
+    }, [isSuccess,error ,isError , navigate])
 
   
 
@@ -75,7 +83,10 @@ const NewEmployeeForm = () => {
 
     const onSaveEmployeeClicked = async (e) => {
         e.preventDefault()
-        if (canSave) {
+        if (canSave /*  &&
+          empIdRegex.test(empId) &&
+          phoneRegex.test(phone) &&
+          fnameRegex.test(fname)&&fnameRegex.test(lname) */) {
             await addNewEmployee({  roles,fname,lname,address,email,phone,department,experience,empId })
         }
     }
@@ -100,14 +111,15 @@ const NewEmployeeForm = () => {
         )
     })
 
-    const errClass = isError ? "errmsg" : "offscreen"
+    /* const errClass = isError ? "errmsg" : "offscreen" */
    
     const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
     const validDeptClass = !Boolean(department.length) ? 'form__input--incomplete' : ''
-
+    
     const content = (
         <>
-      <p className={errClass}>{error?.data?.message}</p>
+      
+      {errorMessage && <p className="errmsg">{errorMessage}</p>}
 
       <form className="form" onSubmit={onSaveEmployeeClicked}>
         <div className="form__title-row">
@@ -122,7 +134,7 @@ const NewEmployeeForm = () => {
 
        
           <label className="form__label" htmlFor="empid">
-         Employee ID:<span className="nowrap"></span>
+         NIC:<span className="nowrap"></span>
         </label>
         <input
           className="form__input"

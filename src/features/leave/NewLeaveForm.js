@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useAddNewLeaveMutation } from "./leaveApiSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from "@fortawesome/free-solid-svg-icons";
-import { LEAVES } from "../../config/leave";
+import { LEAVES ,MAX_LEAVE_LIMITS  } from "../../config/leave";
 import moment from 'moment';
 import useAuth from "../../hooks/useAuth"
 
 
 const NewLeaveForm = ({ users }) => {
-
+  const { username ,isAdmin,isManager } = useAuth()
  
   const [addNewLeave, { isLoading, isSuccess, isError, error }] = useAddNewLeaveMutation();
   const navigate = useNavigate();
@@ -20,10 +20,9 @@ const NewLeaveForm = ({ users }) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [reason, setReason] = useState('');
-   const [userId, setUserId] = useState(users.id);
+   const [userId, setUserId] = useState(username);
 
-  /* const [userId, setUserId] = useState(users?.username || ''); */
- /*  const [userId, setUserId] = useState(users?.username || ''); */
+  
 
   useEffect(() => {
     if (isSuccess) {
@@ -31,18 +30,21 @@ const NewLeaveForm = ({ users }) => {
       setStartDate('');
       setEndDate('');
       setReason(false);
-       setUserId(users.id);  
+       setUserId('');  
       navigate('/dash/leave');
     }
-  }, [isSuccess, navigate, users]);
+  }, [isSuccess, navigate]);
+
+
+  const canSave = [leaveType, startDate, userId,endDate,reason].every(Boolean) && !isLoading;
 
   const onSaveLeaveClicked = async e => {
     e.preventDefault();
-    if (leaveType.length > 0 && startDate && endDate  /* userId */) {
+    if (canSave) {
 
         const formattedDateStart = moment(startDate).format('YYYY-MM-DD');
         const formattedDateend = moment(endDate).format('YYYY-MM-DD');
-      await addNewLeave({ users:userId , leaveType,startDate: formattedDateStart, endDate:formattedDateend, reason });
+      await addNewLeave({ userId, leaveType,startDate: formattedDateStart, endDate:formattedDateend, reason });
     }
   };
 
@@ -52,13 +54,24 @@ const NewLeaveForm = ({ users }) => {
     </option>
   ));
 
-  const onLeavesChanged = e => {
-    const values = Array.from(
-        e.target.selectedOptions, //HTMLCollection 
-        (option) => option.value
-    )
-    setLeaveType(values)
-}
+  const onLeavesChanged = (e) => {
+    const values = Array.from(e.target.selectedOptions, (option) => option.value);
+    const selectedLeaveType = values[0];
+    const maxLimit = MAX_LEAVE_LIMITS[selectedLeaveType];
+
+    if (!maxLimit) {
+      // Leave type is not found in the MAX_LEAVE_LIMITS, handle the error accordingly
+      alert(`Invalid leave type: ${selectedLeaveType}`);
+      return;
+    }
+
+    if (values.length <= maxLimit) {
+      setLeaveType(values);
+    } else {
+      // Handle the case when the selected leave type exceeds the maximum limit
+      alert(`You can't request more than ${maxLimit} days for ${selectedLeaveType}`);
+    }
+  };
 
 const options1 = Object.values(LEAVES).map(leave => {
     return (
@@ -93,6 +106,17 @@ const options1 = Object.values(LEAVES).map(leave => {
             </button>
           </div>
         </div>
+        <label className="form__label" htmlFor="username">
+      Username:
+    </label>
+    <input
+      className="form__input"
+      id="username"
+      name="username"
+      type="text"
+      value={userId}
+      readOnly
+    />
         <label className="form__label" htmlFor="leaveType">
           Leave Type:
         </label>
@@ -144,17 +168,7 @@ const options1 = Object.values(LEAVES).map(leave => {
           onChange={(e) => setReason(e.target.value)}
         />
 
-{/* <label className="form__label" htmlFor="username">
-      Username:
-    </label>
-    <input
-      className="form__input"
-      id="username"
-      name="username"
-      type="text"
-      value={userId}
-      readOnly
-    /> */}
+
       </form>
     </>
   );

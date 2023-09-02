@@ -8,12 +8,10 @@ const initialState = tasksAdapter.getInitialState();
 export const taskApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     getTasks: builder.query({
-      query: () => ({
-        url: '/task',
-        validateStatus: (response, result) => {
-          return response.status === 200 && !result.isError;
-        },
-      }),
+      query: () => '/task',
+      validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError
+      },
       transformResponse: responseData => {
         const loadedTasks = responseData.map((task) => {
           task.id = task._id;
@@ -33,24 +31,35 @@ export const taskApiSlice = apiSlice.injectEndpoints({
       },
     }),
     createTask: builder.mutation({
-      query: (newTask) => ({
+      query: initialUserData => ({
         url: '/task',
         method: 'POST',
-        body: newTask,
+        body:{...initialUserData,}  
       }),
       invalidatesTags: [{ type: 'Task', id: 'LIST' }],
     }),
     updateTask: builder.mutation({
-      query: ({ id, isComplete }) => ({
-        url: `/tasks/${id}`,
-        method: 'PUT',
-        body: { isComplete },
+      query: initialUserData => ({
+        url: '/task',
+        method: 'PATCH',
+        body: {...initialUserData,}
       }),
       invalidatesTags: (result, error, arg) => [
         { type: 'Task', id: arg.id },
         { type: 'Task', id: 'LIST' },
       ],
     }),
+    deleteTask: builder.mutation({
+      query: ({ id }) => ({
+          url: `/task`,
+          method: 'DELETE',
+          body: { id }
+      }),
+      invalidatesTags: (result, error, arg) => [
+          { type: 'Task', id: arg.id }
+      ]
+  }),
+
   }),
 });
 
@@ -58,6 +67,7 @@ export const {
   useGetTasksQuery,
   useCreateTaskMutation,
   useUpdateTaskMutation,
+  useDeleteTaskMutation,
 } = taskApiSlice;
 
 export const selectTasksResult = taskApiSlice.endpoints.getTasks.select();

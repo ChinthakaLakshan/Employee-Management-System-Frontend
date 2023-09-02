@@ -2,10 +2,15 @@ import { useGetAttendanceQuery } from './attendanceApiSlice'
 import Attendance from './Attendance'
 import useTitle from "../../hooks/useTitle"
 import PulseLoader from 'react-spinners/PulseLoader'
+import React , {useRef } from 'react';
 
+import { useReactToPrint } from "react-to-print";
 
 const AttendanceList = () => {
     useTitle('Aknara: Employees Attendance List')
+
+    const componentPDF= useRef();
+
     const {
         data: attendance,
         isLoading,
@@ -17,6 +22,11 @@ const AttendanceList = () => {
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true
     })
+    const generatePDF = useReactToPrint({
+        content: () => componentPDF.current,
+        documentTitle: "TaskList",
+        onAfterPrint: () => alert("Data saved in PDF")
+      });
 
     let content
 
@@ -37,6 +47,8 @@ const AttendanceList = () => {
             : null
 
         content = (
+            <div  ref={componentPDF} style={{width:'80%'}}>
+            
             <table className="tableatte table--employees">
 
 
@@ -53,6 +65,10 @@ const AttendanceList = () => {
                     {tableContent}
                 </tbody>
             </table>
+            <div className="d-grid d-md-flex justify-content-md-end mb-3">
+             <button className="btn btn-success" onClick={ generatePDF}>Generate PDF</button>                       
+            </div>
+            </div> 
         )
     }
 

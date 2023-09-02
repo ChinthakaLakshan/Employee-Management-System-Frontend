@@ -47,8 +47,9 @@ export const leaveApiSlice = apiSlice.injectEndpoints({
             ]
         }),
         updateLeave: builder.mutation({
-            query: initialNote => ({
-                url: '/leave',
+            query:({ leaveId, approvalstatus, ...initialNote }) => ({
+                url: `/leave`,
+                
                 method: 'PATCH',
                 body: {
                     ...initialNote,
@@ -60,7 +61,7 @@ export const leaveApiSlice = apiSlice.injectEndpoints({
         }),
         deleteLeave: builder.mutation({
             query: ({ id }) => ({
-                url: `/leaves`,
+                url: `/leave`,
                 method: 'DELETE',
                 body: { id }
             }),
@@ -76,7 +77,7 @@ export const {
     useAddNewLeaveMutation,
     useUpdateLeaveMutation,
     useDeleteLeaveMutation,
-} = leaveApiSlice
+} = leaveApiSlice;
 
 // returns the query result object
 export const selectLeaveResult = leaveApiSlice.endpoints.getLeaves.select()
@@ -84,7 +85,7 @@ export const selectLeaveResult = leaveApiSlice.endpoints.getLeaves.select()
 // creates memoized selector
 const selectLeaveData = createSelector(
     selectLeaveResult,
-    leaveResult => leaveResult.data // normalized state object with ids & entities
+    (leaveResult) => leaveResult.data // normalized state object with ids & entities
 )
 
 //getSelectors creates these selectors and we rename them with aliases using destructuring
@@ -93,4 +94,4 @@ export const {
     selectById: selectLeaveById,
     selectIds: selectLeaveIds
     // Pass in a selector that returns the notes slice of state
-} = leavesAdapter.getSelectors(state => selectLeaveData(state) ?? initialState)
+} = leavesAdapter.getSelectors((state) => selectLeaveData(state) ?? initialState);

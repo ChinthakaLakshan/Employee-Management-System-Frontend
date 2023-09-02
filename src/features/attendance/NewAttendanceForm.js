@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import moment from 'moment';
+import useTitle from '../../hooks/useTitle'
 
-const NewAttendanceForm = () => {
+const NewAttendanceForm = ({users}) => {
+  useTitle(' New Attendance Form');
   const [addNewAttendance, { isLoading, isSuccess, isError, error }] =
     useAddNewEmployeeAttendanceMutation();
   const navigate = useNavigate();
@@ -25,11 +27,25 @@ const NewAttendanceForm = () => {
     }
   }, [isSuccess, navigate]);
 
+  const onDateChanged = e => setDate(e.target.value);
+  const onTimeInChanged = e => setTimeIn(e.target.value);
+  const  onTimeOutChanged = e =>  setTimeOut(e.target.value);
+ // const onUserIdChanged = e => setEmpId(e.target.value); 
+  
+   const onUserIdChanged = e => {
+    const values = Array.from(
+        e.target.selectedOptions, //HTMLCollection 
+        (option) => option.value
+    )
+    console.log("Selected Employees:", values);
+    setEmpId(values)
+} 
+
   const canSave =
     [date.length, timeIn.length, timeOut.length, empId.length].every(Boolean) &&
     !isLoading;
 
-  const onSaveAttendanceClicked = async (e) => {
+  const onSaveAttendanceClicked = async e => {
     e.preventDefault();
     if (canSave) {
         const formattedDate = moment(date).format('YYYY-MM-DD');
@@ -40,11 +56,16 @@ const NewAttendanceForm = () => {
             await addNewAttendance({ empId, date: formattedDate,
                 timeIn: formattedTimeIn,
                 timeOut: formattedTimeOut });
-         
-           
-          
+
+                    
     }
   };
+
+  const options = users.map(user => (
+    <option key={user.id} value={user.id}>
+      {user.username}
+    </option>
+  ));
 
   const errClass = isError ? "errmsg" : "offscreen";
 
@@ -98,17 +119,19 @@ const NewAttendanceForm = () => {
           onChange={(e) => setTimeOut(e.target.value)}
         />
 
-        <label className="form__label" htmlFor="empId">
-          Employee ID:<span className="nowrap"></span>
+        <label className="form__label form__checkbox-container" htmlFor="empId">
+          Employee Name:<span className="nowrap"></span>
         </label>
-        <input
+        <select
           className="form__input"
           id="empId"
           name="empId"
           type="text"
           value={empId}
-          onChange={(e) => setEmpId(e.target.value)}
-        />
+          onChange={onUserIdChanged}
+        >
+           {options}
+        </select>
       </form>
     </>
   );

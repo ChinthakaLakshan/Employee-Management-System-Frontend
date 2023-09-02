@@ -13,12 +13,13 @@ let isChef =false
 let isSupevisor =false
 let isStewards =false
 let isAccountant =false
-let userId = null;
+let isEmployee =false
+
     let status = "Employee"
 
     if (token) {
         const decoded = jwtDecode(token)
-        const { username, roles ,userId: decodedUserId } = decoded.UserInfo
+        const { username, roles  } = decoded.UserInfo
 
         isManager = roles.includes('Manager')
         isAdmin = roles.includes('Admin')
@@ -26,6 +27,7 @@ let userId = null;
          isSupevisor =roles.includes('Supervisor')
           isStewards =roles.includes('steward')
            isAccountant =roles.includes('Acountant')
+           isEmployee=roles.includes('Employee')
 
         if (isManager) status = "Manager"
         if (isAdmin) status = "Admin"
@@ -33,12 +35,13 @@ let userId = null;
         if (isSupevisor) status = "Supervisor"
         if (isStewards) status = "steward"
         if (isAccountant) status = "Acountant"
+        if (isEmployee) status = "Employee"
 
-        userId = decodedUserId;
+       
 
-        return { username, roles, status, isManager, isAdmin ,isChef, isSupevisor,isStewards,isAccountant , userId}
+        return { username, roles, status, isManager, isAdmin ,isChef, isSupevisor,isStewards,isAccountant ,isEmployee }
     }
 
-    return { username: '', roles: [], isManager, isAdmin, status , isChef, isSupevisor,isStewards,isAccountant , userId }
+    return { username: '', roles: [], isManager, isAdmin, status , isChef, isSupevisor,isStewards,isAccountant,isEmployee  }
 }
 export default useAuth

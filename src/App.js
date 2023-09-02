@@ -25,14 +25,20 @@ import { ROLES } from './config/roles'
 import AttendanceList from './features/attendance/AttendanceList'
 import NewAttendanceForm from './features/attendance/NewAttendanceForm';
 import EditAttendance from './features/attendance/EditAttendance';
+import NewAttendance from './features/attendance/NewAttendance';
+
 
 import TaskList from './features/task/TaskList';
 
 import TaskPage from './features/task/TaskPage';
+import EditTask from './features/task/EditTask';
 
 
 import LeaveList from './features/leave/LeaveList';
 import NewLeave from './features/leave/NewLeave';
+import EditLeave from './features/leave/EditLeave';
+
+import Reports from './features/reports/Reports';
 
 function App() {
   return (
@@ -73,18 +79,24 @@ function App() {
                 <Route path="attendance">
                   <Route index element={<AttendanceList />} />
                   <Route path=":id" element={<EditAttendance />} />
-                  <Route path="new" element={<NewAttendanceForm/>} /> 
+                  <Route path="new" element={<NewAttendance/>} /> 
                 </Route>
                 
                 <Route path="task">
                   <Route index element={<TaskList />} />
-                 {/*   <Route path=":id" element={<EditAttendance />} />*/ }
+                    <Route path=":id" element={<EditTask />} />
                   <Route path="new" element={<TaskPage/>} />  
                 </Route>
 
                 <Route path="leave">
                   <Route index element={<LeaveList/>} />
+                  <Route path=":id" element={<EditLeave />} />
                   <Route path="new" element={<NewLeave/>} />  
+                </Route>
+               
+                <Route path="reports">
+                  <Route index element={<Reports/>} />
+                 
                 </Route>
 
 

@@ -4,11 +4,10 @@ import React from "react";
 import { useGetUsersQuery } from '../users/usersApiSlice'
 import useTitle from '../../hooks/useTitle'
 import PulseLoader from 'react-spinners/PulseLoader'
-import NewTaskForm from "./NewTaskForm";
+import NewAttendanceForm from '../attendance/NewAttendanceForm'
 
-
-const TaskPage = () => {
-  useTitle('New Task')
+const NewAttendance = () => {
+  useTitle('New Attendance')
 
 
 
@@ -22,9 +21,9 @@ const { users } = useGetUsersQuery("usersList", {
 
 if (!users?.length) return <PulseLoader color={"#FFF"} />
 
-const content = <NewTaskForm users={users} />
+const content = <NewAttendanceForm users={users} />
 
 return content
 }
 
-export default TaskPage;
+export default  NewAttendance;

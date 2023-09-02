@@ -10,7 +10,7 @@
 
 :root {
   /* COLORS */
-  --BGCOLOR: #eaedf3;
+  --BGCOLOR:  #333333;
   --BORDER-COLOR: #FFF;
   --COLOR: #FFF;
   --ERROR: firebrick;
@@ -70,7 +70,7 @@ body {
   min-height: 100vh;
   background-color: var(--BGCOLOR);
   color: var(--COLOR);
-  background-image: url('./img/Aknara.jpg');
+ /*  background-image: url('./img/Aknara.jpg'); */
   background-size: cover;
   background-position: top right;
   background-blend-mode: multiply;
@@ -139,7 +139,7 @@ a:focus-visible {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color:#800000;
+  background-color:#311465;
   padding: 0 0.5em;
   border-bottom: 1px solid var(--BORDER-COLOR);
 }
@@ -172,7 +172,7 @@ a:focus-visible {
   position: sticky;
   bottom: 0;
   z-index: 1;
-  background-color:#800000;
+  background-color:#311465;
   padding: 0.5em;
   border-top: 1px solid var(--BORDER-COLOR);
   display: flex;
@@ -220,12 +220,19 @@ tr {
   color: var(--TABLE-COLOR);
   gap: 0.1em;
 }
-
+.tableleave {
+  font-size: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr  1fr 1fr  ;
+  color: var(--TABLE-COLOR);
+  gap: 0.1em;
+}
 .tabletask {
   font-size: 1rem;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr    ;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr  1fr  1fr  ;
   color: var(--TABLE-COLOR);
   gap: 0.1em;
 }

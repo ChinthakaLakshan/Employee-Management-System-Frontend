@@ -24,7 +24,7 @@ const Welcome = () => {
     justifyContent: 'center',
     width: '300px',
     height: '200px',
-    backgroundColor: '#ffd700',
+    backgroundColor: '#311465',
     borderRadius: '10px',
     margin: '10px',
     padding: '10px',
@@ -106,21 +106,21 @@ const Welcome = () => {
           </Link>
         </div>
 
-        <div style={boxStyle}
+     {/*    <div style={boxStyle}
         onMouseEnter={handleBoxHover}
         onMouseLeave={handleBoxLeave}>
           <Link to="/dash/notes/new">
             <FontAwesomeIcon icon={faStickyNote} style={iconStyle} />
             Task
           </Link>
-        </div>
+        </div> */}
 
         <div style={boxStyle}
         onMouseEnter={handleBoxHover}
         onMouseLeave={handleBoxLeave}>
           <Link to="/dash/task">
             <FontAwesomeIcon icon={faStickyNote} style={iconStyle} />
-            Task 123
+            Task
           </Link>
         </div>
 
@@ -142,8 +142,18 @@ const Welcome = () => {
           </Link>
         </div>
 
+     {/*    <div style={boxStyle}
+        onMouseEnter={handleBoxHover}
+        onMouseLeave={handleBoxLeave}>
+          <Link to="/dash/reports">
+            <FontAwesomeIcon icon={faStickyNote} style={iconStyle} />
+           Reports
+          </Link>
+        </div> */}
 
       </div>
+
+      
     </section>
   );
 

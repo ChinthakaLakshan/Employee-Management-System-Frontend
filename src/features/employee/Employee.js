@@ -32,7 +32,7 @@ const Employee = ({EmployeeId }) => {
                 <td className={`table__cell ${cellStatus}`}>{employees.phone}</td>
                 <td className={`table__cell ${cellStatus}`}>{employeeDepartmentsString}</td>
                 <td className={`table__cell ${cellStatus}`}>{employeeRolesString}</td>
-                <td className={`table__cell ${cellStatus}`}>{employees.prevexperience}</td>
+                <td className={`table__cell ${cellStatus}`}>{employees.experience}</td>
                 <td className={`table__cell ${cellStatus}`}>{employees.empId}</td>
                <td className={`table__cell ${cellStatus}`}>
                     <button
