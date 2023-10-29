@@ -30,10 +30,11 @@ const EditEmployeeForm = ({employees}) => {
     const [email, setemail] = useState('')
     const [prevexperience, setexperience] = useState('')
     const [phone, setphone] = useState('')
+    const [address, setaddress] = useState('')
    /* const [fname, setfname] = useState('')
     const [lname, setlname] = useState('')
    
-    const [address, setaddress] = useState('')
+    
     
     
     
@@ -51,8 +52,8 @@ const EditEmployeeForm = ({employees}) => {
             setemail('')
             setexperience('')
             setphone('')
-           /* setaddress('')
-            
+          setaddress('')
+             /* 
             setempid('')
             
             setfname('')
@@ -87,10 +88,15 @@ const EditEmployeeForm = ({employees}) => {
     setemail(value);
   }
 
+  const onAddressChanged = e => {
+    const value = e.target.value;
+    setaddress(value);
+  }
+
 
     const onSaveEmployeesClicked = async (e) => {
         
-            await updateEmployees({ id: employees.id, email, department, roles , phone ,prevexperience})
+            await updateEmployees({ id: employees.id, email, department, roles , phone ,prevexperience,address})
         
             
         }
@@ -200,6 +206,19 @@ const EditEmployeeForm = ({employees}) => {
         >
           {options1}
         </select>
+
+        <label className="form__label" htmlFor="email">
+         Address: <span className="nowrap"></span>
+        </label>
+        <input
+          className={`form__input `}
+          id="address"
+          name="address"
+          type="text"
+          autoComplete="off"
+          value={address}
+          onChange={onAddressChanged}
+        />
 
 
 

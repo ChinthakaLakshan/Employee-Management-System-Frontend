@@ -39,6 +39,7 @@ const UsersList = () => {
                         <th scope="col" className="table__th user__username">Username</th>
                         <th scope="col" className="table__th user__roles">Roles</th>
                         <th scope="col" className="table__th user__edit">Edit</th>
+                    
                     </tr>
                 </thead>
                 <tbody>

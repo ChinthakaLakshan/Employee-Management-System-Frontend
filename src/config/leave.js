@@ -8,7 +8,7 @@ export const LEAVES={
 
     export const MAX_LEAVE_LIMITS = {
         Annual: 15,
-        Sick: 10,
+        Sick: 1,
         Bereavement: 5,
         Casual: 20,
       };
